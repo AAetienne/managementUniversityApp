@@ -6,6 +6,8 @@ import 'package:isibappmoodle/config/config';
 import 'package:isibappmoodle/views/home_share_file_view.dart';
 
 class AuthPage extends StatefulWidget {
+  const AuthPage({super.key});
+
   @override
   _AuthPageState createState() => _AuthPageState();
 }
@@ -70,7 +72,10 @@ class _AuthPageState extends State<AuthPage> {
     final String password = _passwordController.text;
 
     // Vérification des champs
-    if (email.isEmpty || password.isEmpty || _selectedClasse == null || _selectedFiliere == null) {
+    if (email.isEmpty ||
+        password.isEmpty ||
+        _selectedClasse == null ||
+        _selectedFiliere == null) {
       setState(() {
         _message =
             "L'email, le mot de passe et la section sont requis pour l'inscription.";

@@ -11,6 +11,8 @@ import 'package:isibappmoodle/views/Opportunity_Views/opportunity_page.dart';
 import 'package:isibappmoodle/views/project_management.dart';
 import 'package:isibappmoodle/views/suivi_view'; // Assurez-vous que ce fichier contient la page HomeShareFile
 import 'package:isibappmoodle/views/project_management.dart'; // Assurez-vous que ce fichier contient la page HomeShareFile
+import 'package:isibappmoodle/views/add_project_page.dart';
+import 'package:isibappmoodle/views/project_details_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +22,7 @@ void main() async {
   FirebaseAPI firebaseAPI = FirebaseAPI();
   firebaseAPI.initializeAwesomeNotifications();
   await firebaseAPI.initNotifications();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home:
-          AuthChecker(), // Vérifier l'état de la connexion avant de montrer une page
+          const AuthChecker(), // Vérifier l'état de la connexion avant de montrer une page
       routes: {
         '/auth': (context) => AuthPage(),
         '/home': (context) => HomeShareFile(),
@@ -67,7 +69,7 @@ class AuthChecker extends StatelessWidget {
       future: _getUser(), // Vérifier si l'utilisateur est connecté
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
+          return const Scaffold(
             body: Center(
                 child:
                     CircularProgressIndicator()), // Afficher un chargement pendant la vérification
@@ -75,7 +77,7 @@ class AuthChecker extends StatelessWidget {
         } else if (snapshot.hasData && snapshot.data != null) {
           return HomeShareFile(); // Si connecté, rediriger vers la page HomeShareFile
         } else {
-          return AuthPage(); // Si non connecté, rediriger vers la page de connexion
+          return const AuthPage(); // Si non connecté, rediriger vers la page de connexion
         }
       },
     );

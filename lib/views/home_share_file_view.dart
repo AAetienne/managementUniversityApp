@@ -30,7 +30,7 @@ class HomeShareFile extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Choisissez une filière"),
+          title: const Text("Choisissez une filière"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: filieres.map((filiere) {
@@ -66,19 +66,19 @@ class HomeShareFile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       appBar: AppBar(
-        title: Text('ShareFile - Accueil'),
+        title: const Text('ShareFile - Accueil'),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             tooltip: 'Ajouter une matière',
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      AddSubjectForm(), // Navigue vers le formulaire
+                      const AddSubjectForm(), // Navigue vers le formulaire
                 ),
               );
             },
@@ -88,7 +88,7 @@ class HomeShareFile extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, // Nombre de colonnes
             crossAxisSpacing: 16, // Espace entre colonnes
             mainAxisSpacing: 16, // Espace entre les rangées
@@ -120,7 +120,7 @@ class HomeShareFile extends StatelessWidget {
                 child: Center(
                   child: Text(
                     classes[index],
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),

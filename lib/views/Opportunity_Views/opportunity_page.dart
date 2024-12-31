@@ -10,6 +10,8 @@ import 'package:isibappmoodle/views/Opportunity_Views/add_opportunity_page.dart'
 import 'package:isibappmoodle/views/Opportunity_Views/edit_opportunity_page.dart'; // Import de la page d'édition
 
 class OpportunityPage extends StatefulWidget {
+  const OpportunityPage({super.key});
+
   @override
   _OpportunityPageState createState() => _OpportunityPageState();
 }
@@ -80,7 +82,7 @@ class _OpportunityPageState extends State<OpportunityPage> {
 
   // Fonction pour récupérer les opportunités depuis le serveur
   Future<void> fetchWorks() async {
-    final String apiUrl = "http://192.168.129.13:3000/works";
+    const String apiUrl = "http://192.168.129.13:3000/works";
     try {
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
@@ -126,8 +128,8 @@ class _OpportunityPageState extends State<OpportunityPage> {
         setState(() {
           works.removeWhere((work) => work.id == workId);
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Opportunité supprimée avec succès.')));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Opportunité supprimée avec succès.')));
       } else {
         throw Exception('Erreur lors de la suppression.');
       }
@@ -178,7 +180,7 @@ class _OpportunityPageState extends State<OpportunityPage> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setStateDialog) {
             return AlertDialog(
-              title: Text("Choisissez les sections"),
+              title: const Text("Choisissez les sections"),
               content: SingleChildScrollView(
                 child: Column(
                   children: sectionsItems.skip(1).map((section) {
@@ -199,7 +201,7 @@ class _OpportunityPageState extends State<OpportunityPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text("Annuler"),
+                  child: const Text("Annuler"),
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -207,7 +209,7 @@ class _OpportunityPageState extends State<OpportunityPage> {
                     await _saveUserNotificationPreferences(selectedSections);
                     Navigator.pop(context);
                   },
-                  child: Text("Enregistrer"),
+                  child: const Text("Enregistrer"),
                 ),
               ],
             );
@@ -224,7 +226,7 @@ class _OpportunityPageState extends State<OpportunityPage> {
         .map((e) => e.key);
 
     // Appel backend pour sauvegarder
-    final String apiUrl = "http://192.168.129.13:3000/preferences";
+    const String apiUrl = "http://192.168.129.13:3000/preferences";
     final userId = await getUserId();
 
     final body = json.encode({
@@ -293,14 +295,15 @@ class _OpportunityPageState extends State<OpportunityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Opportunités'),
+        title: const Text('Opportunités'),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () async {
               final result = await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddOpportunityPage()),
+                MaterialPageRoute(
+                    builder: (context) => const AddOpportunityPage()),
               );
               if (result == true) {
                 fetchWorks(); // Recharge les données
@@ -308,14 +311,14 @@ class _OpportunityPageState extends State<OpportunityPage> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.notifications),
+            icon: const Icon(Icons.notifications),
             onPressed: _showSectionSelectionDialog,
           ),
         ],
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : errorMessage.isNotEmpty
               ? Center(child: Text(errorMessage))
               : Padding(
@@ -323,15 +326,15 @@ class _OpportunityPageState extends State<OpportunityPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       TextField(
                         decoration: InputDecoration(
                           labelText: 'Rechercher par nom',
-                          prefixIcon: Icon(Icons.search),
+                          prefixIcon: const Icon(Icons.search),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 16.0),
                         ),
                         onChanged: (value) {
@@ -341,7 +344,7 @@ class _OpportunityPageState extends State<OpportunityPage> {
                           filterWorks();
                         },
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       DropdownButtonFormField(
                         value: selectedSection,
                         items: sectionsItems
@@ -355,7 +358,7 @@ class _OpportunityPageState extends State<OpportunityPage> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16.0),
                         ),
                         isExpanded: true,
@@ -367,7 +370,7 @@ class _OpportunityPageState extends State<OpportunityPage> {
                         },
                         menuMaxHeight: 300,
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Expanded(
                         child: ListView.builder(
                           itemCount: filteredWorks.length,
@@ -380,7 +383,7 @@ class _OpportunityPageState extends State<OpportunityPage> {
                               child: ListTile(
                                 title: Text(
                                   work.company,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -414,10 +417,10 @@ class _OpportunityPageState extends State<OpportunityPage> {
                                     }
                                   },
                                   itemBuilder: (context) => [
-                                    PopupMenuItem(
+                                    const PopupMenuItem(
                                         value: 'Modifier',
                                         child: Text('Modifier')),
-                                    PopupMenuItem(
+                                    const PopupMenuItem(
                                         value: 'Supprimer',
                                         child: Text('Supprimer')),
                                   ],
